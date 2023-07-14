@@ -10,17 +10,19 @@ class App extends React.Component {
     this.state = {
       expression: "",
       answer: "0",
+      changes: false,
     };
     this.clean = this.clean.bind(this);
     this.operator = this.operator.bind(this);
     this.number = this.number.bind(this);
     this.decimal = this.decimal.bind(this);
     this.calculate = this.calculate.bind(this);
+    this.isExpressionValid = this.isExpressionValid.bind(this);
   }
 
   clean() {
     this.setState(() => {
-      return { expression: "", answer: "0" };
+      return { expression: "", answer: "0", changes: false };
     });
   }
 
@@ -31,6 +33,7 @@ class App extends React.Component {
         return {
           expression: state.answer + event.target.value,
           answer: event.target.value,
+          changes: true,
         };
       });
     } else if (
@@ -41,6 +44,7 @@ class App extends React.Component {
         return {
           expression: state.expression.slice(0, leng - 2) + event.target.value,
           answer: event.target.value,
+          changes: true,
         };
       });
     } else if (
@@ -51,6 +55,7 @@ class App extends React.Component {
         return {
           expression: state.expression.slice(0, leng - 1) + event.target.value,
           answer: event.target.value,
+          changes: true,
         };
       });
     } else {
@@ -58,6 +63,7 @@ class App extends React.Component {
         return {
           expression: state.expression + event.target.value,
           answer: event.target.value,
+          changes: true,
         };
       });
     }
@@ -69,21 +75,28 @@ class App extends React.Component {
         return {
           answer: event.target.value,
           expression: state.expression + event.target.value,
+          changes: true,
         };
       });
     } else {
       this.setState((state) => {
         if (this.state.answer === "0") {
-          return { answer: event.target.value, expression: event.target.value };
+          return {
+            answer: event.target.value,
+            expression: event.target.value,
+            changes: true,
+          };
         } else if (this.state.expression.includes("=")) {
           return {
             answer: event.target.value,
             expression: event.target.value,
+            changes: true,
           };
         } else {
           return {
             answer: state.answer + event.target.value,
             expression: state.expression + event.target.value,
+            changes: true,
           };
         }
       });
@@ -100,19 +113,36 @@ class App extends React.Component {
         return {
           answer: state.answer + event.target.value,
           expression: state.expression + event.target.value,
+          changes: true,
         };
       }
     });
   }
 
+  isExpressionValid(expression) {
+    try {
+      math.evaluate(expression);
+      return true;
+    } catch (error) {
+      return null;
+    }
+  }
+
   calculate() {
-    this.setState((state) => {
-      return {
-        answer: math.round(eval(this.state.expression), 12),
-        expression:
-          state.expression + "=" + math.round(eval(this.state.expression), 12),
-      };
-    });
+    if (
+      this.isExpressionValid(this.state.expression) &&
+      this.state.expression != ""
+    ) {
+      this.setState((state) => {
+        return {
+          answer: math.round(math.evaluate(this.state.expression), 12),
+          expression:
+            state.expression +
+            "=" +
+            math.round(math.evaluate(this.state.expression), 12),
+        };
+      });
+    }
   }
 
   render() {
