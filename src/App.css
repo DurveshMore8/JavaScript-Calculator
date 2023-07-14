@@ -1,0 +1,111 @@
+@import 'https://fonts.googleapis.com/css?family=Share+Tech+Mono';
+@font-face {
+  font-family: Digital;
+  src: url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff") format("woff");
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #d3d3d3;
+}
+
+.calculator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 340px;
+  height: 440px;
+  padding: 0 5px;
+  padding-bottom: 5px;
+  border: 3px solid grey;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  font-family: "Share Tech Mono";
+}
+
+.expression {
+  width: inherit;
+  height: 15px;
+  font-family: Digital;
+  padding-bottom: 20px;
+  color: orange;
+  text-align: right;
+  font-size: 30px;
+}
+
+.answer {
+  width: inherit;
+  height: 15px;
+  font-family: Digital;
+  margin-bottom: 30px;
+  text-align: right;
+  font-size: 30px;
+}
+
+.buttons {
+  height: 340px;
+  width: 340px;
+}
+
+button {
+  position: relative;
+  font-family: Share Tech Mono;
+  color: white;
+  font-size: 20px;
+  border: none;
+  width: 85px;
+  height: 70px;
+  border: 1px solid black;
+}
+
+button:hover {
+  color: black;
+  box-shadow: 0px 0px 3px white;
+}
+
+.numbers {
+  background-color: #4d4d4d;
+  border-radius: 0px;
+  border: 1px solid black;
+}
+
+.wide {
+  width: 170px;
+  height: 70px;
+  background-color: #ac3939;
+  border-radius: 0px;
+  border: 1px solid black;
+}
+
+.operators {
+  background-color: #666666;
+  border-radius: 0px;
+  border: 1px solid black;
+}
+
+.long {
+  position: absolute;
+  background-color: #004466;
+  height: 140px;
+  border-radius: 0px;
+  border: 1px solid black;
+}
+
+.creator {
+  font-family: Share Tech Mono;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.coder {
+  color: #004466;
+  margin-top: 5px;
+}
